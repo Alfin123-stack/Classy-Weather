@@ -77,17 +77,16 @@ class App extends React.Component {
     }
   }
 
+  handleInput(e) {
+    this.setState({ location: e.target.value });
+  }
+
   render() {
     return (
       <div className="app">
         <h1>Classy Weather</h1>
         <div>
-          <input
-            type="text"
-            placeholder="Search from location..."
-            value={this.state.location}
-            onChange={(e) => this.setState({ location: e.target.value })}
-          />
+          <Search onInput={this.handleInput} location={this.state.location} />
         </div>
         <button onClick={this.fetchWeather}>Get weather</button>
 
@@ -100,6 +99,20 @@ class App extends React.Component {
           />
         )}
       </div>
+    );
+  }
+}
+
+class Search extends React.Component {
+  render() {
+    const { location, onInput } = this.props;
+    return (
+      <input
+        type="text"
+        placeholder="Search from location..."
+        value={location}
+        onChange={onInput}
+      />
     );
   }
 }
